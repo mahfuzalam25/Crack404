@@ -1,0 +1,35 @@
+{% extends "home/base.html" %}
+{% block title %} Team {% endblock %}
+{% block content %}
+{% load static %}
+<body id="/">
+
+    <section class="team" id="team">
+        <h2>Our Team</h2>
+        <div class="container box_container">
+            <div class="products-container">
+
+                {% for team in teams %}
+                <div class="product">
+                    <img src="{{team.e_image.url}}" alt="">
+                    <h3>{{team.e_name}}</h3>
+                    <div class="designation">{{team.e_designation}}</div>
+                    <div class="social-media">
+                        <a href="{{team.e_facebook}}" target="_blank"
+                            class="fab fa-facebook"></a>
+                        <a href="{{team.e_instagram}}"
+                            target="_blank" class="fab fa-instagram"></a>
+                        <a href="{{team.e_linkedin}}" target="_blank"
+                            class="fab fa-linkedin"></a>
+                        <a href="{{team.e_github}}" class="fab fa-github"></a>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+
+    </section>
+
+</body>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "home/base.html" %}
+{% block title %} Project {% endblock %}
+{% block content %}
+{% load static %}
+<body id="/">
+
+    <section class="project" id="project">
+        <h2>Project</h2>
+        <div class="container box_container">
+            <div class="swiper">
+                <div class="swiper-wrapper">
+
+                    {% for project in projects %}
+                    <div class="swiper-slide">
+                        <div class="content">
+                            <h2>{{project.title}}</h2>
+                            <img src="{{ project.image.url }}" alt="{{project.title}}">
+                            <a href="{{ project.url }}" target="_blank"> <button class="btn">Learn More</button></a>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+{% endblock %}

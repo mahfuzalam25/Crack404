@@ -1,0 +1,244 @@
+{% extends "home/base.html" %}
+{% block title %} Home {% endblock %}
+{% block content %}
+{% load static %}
+<body id="/">
+
+    <header class="header" id="home">
+        <div class="mySwiper">
+            <div class="swiper-wrapper">
+
+                {% for banner in banners %}
+                <div class="swiper-slide">
+                    <div class="box_container header_container">
+
+                        <div class="header_left">
+                            <h1> {{banner.heading}} <span>{{banner.span}}</span></h1>
+                            <p>{{banner.description}}</p>
+                        </div>
+                        <div class="header_right">
+                            <div class="header_right-image">
+                                <img src="{{banner.image.url}}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    </header>
+
+    <section class="web-site" id="web-site">
+        <h2>Our New Released Projects</h2>
+        <div class="mySwiper">
+            <div class="swiper-wrapper">
+
+                {% for website in websites %}
+                <div class="swiper-slide">
+                    <div class="box_container web_container">
+                        <div class="web_left">
+                            <div class="web-title"><a href="{{website.url}}"><img src="{{website.image.url}}"
+                                        alt="website.title"></a>
+                                <h1>{{website.title}}</h1>
+                            </div>
+                            <div class="web-info">
+                                <div class="web-review">
+                                    <div class="web-icon"><i class="fa-solid fa-book"></i></div>
+                                    <p>{{website.description1}}</p>
+                                </div>
+                                <div class="web-review">
+                                    <div class="web-icon"><i class="fa-solid fa-school"></i></div>
+                                    <p>{{website.description2}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="web_right">
+                            <div class="web_right-image">
+                                <img src="{{website.projectImage.url}}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <h2>About Us</h2>
+
+        {% for about in abouts %} 
+        <div class="box_container about_container">
+            <div class="about_left">
+                <h1>{{about.heading}}</h1>
+                <p>{{about.desc}}</p>
+                <div class="achievement-cards">
+                    <article class="achievement-card">
+                        <h3>{{about.t_project}}+</h3>
+                        <p>Total Projects</p>
+                    </article>
+                    <article class="achievement-card">
+                        <h3>{{about.t_country}}+</h3>
+                        <p>Counties</p>
+                    </article>
+                    <article class="achievement-card">
+                        <h3>{{about.o_project}}+</h3>
+                        <p>Ongoing Projects</p>
+                    </article>
+                    <article class="achievement-card">
+                        <h3>{{about.view}}M</h3>
+                        <p>Reviews</p>
+                    </article>
+                </div>
+            </div>
+            <div class="about_right">
+                <div class="about_right-image">
+                    <img src="{{about.image.url}}">
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </section>
+
+    <section class="project" id="projects">
+        <h2>Project</h2>
+        <div class="container box_container">
+            <div class="swiper">
+                <div class="swiper-wrapper">
+
+                    {% for project in projects %}
+                    <div class="swiper-slide">
+                        <div class="content">
+                            <h2>{{project.title}}</h2>
+                            <img src="{{ project.image.url }}" alt="{{ project.title }}">
+                            <a href="{{ project.url }}" target="_blank"> <button class="btn">Learn More</button></a>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="team" id="team">
+        <h2>Our Team</h2>
+        <div class="container box_container">
+            <div class="products-container">
+
+                {% for team in teams %}
+                <div class="product" data-name="p-1">
+                    <img src="{{team.e_image.url}}" alt="">
+                    <h3>{{team.e_name}}</h3>
+                    <a href="/team"> <button class="btn">Team Member</button></a>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+
+    <section class="review">
+        <h2>What people think about Us</h2>
+        <div class="swiper-container box_container">
+            <div class="swiper-wrapper">
+
+                <div class="swiper-slide">
+                    <div class="reviewBox">
+                        <div class="rev-content">
+                            <form action="/" method="post" class="review_form" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="form_name">
+                                    <input type="text" name="customername" placeholder="Your name" required>
+                                </div>
+                                <input type="text" name="customerdesignation" placeholder="Designation/Country" required>
+
+                                <!-- Image Upload Section -->
+                                <div class="form_image">
+                                    <input type="file" name="customerimage" id="image" accept="image/*" required>
+                                </div>
+
+                                <textarea name="customerreview" rows="2" placeholder="Your Review" required></textarea>
+                                <button type="submit" class="btn btn-primary">Add review</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+                {% for reviews in review %}
+                <div class="swiper-slide">
+                    <div class="reviewBox">
+                        <div class="rev-content">
+                            <p>{{ reviews.customerreview }}</p>
+                        </div>
+                        <div class="rev-details">
+                            <div class="imgBx">
+                                <img src="{{ reviews.customerimage.url }}" alt=" {{reviews.customername}} " />
+                            </div>
+                            <h3>{{reviews.customername}} <br /><span>{{ reviews.customerdesignation }}</span></h3>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <h2>Contact Us</h2>
+        <div class="box_container contact_container">
+            <aside class="contact_aside">
+                <p>Our team will reach out to you. If you have any queries, feel free to contact us by phone or email.
+
+                    Thank you for Visiting!
+                </p>
+                <ul class="contact_details">
+                    <li>
+                        <i class="fa-solid fa-phone"></i>
+                        <h5>+8801310692122</h5>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-envelope"></i>
+                        <h5>crack404websol@gmail.com</h5>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-location-dot"></i>
+                        <h5>Sylhet, Bangladesh</h5>
+                    </li>
+                </ul>
+                <ul class="contact_socials">
+                    <li><a href="http://facebook.com" target="_blank"><i class="fa-brands fa-facebook"></i></a></li>
+                    <li><a href="http://instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i></a></li>
+                    <li><a href="https://twitter.com/TahmidHaqu97852" target="_blank"><i
+                                class="fa-brands fa-twitter"></i></a></li>
+                    <li><a href="https://www.linkedin.com/in/tahmid-haque-7698a1258/" target="_blank"><i
+                                class="fa-brands fa-linkedin"></i></a></li>
+                </ul>
+            </aside>
+
+
+
+            <form action="/contact" method="POST" class="contact_form">
+                {% csrf_token %}
+                <div class="form_name">
+                    <input type="text" id="first_name" name="first_name" Placeholder="First Name" required>
+                    <input type="text" id="last_name" name="last_name" Placeholder="Last Name" required>
+                </div>
+                <input type="email" id="email" name="email" placeholder="Your Email Address" required>
+                <textarea id="content" name="content" rows="7" placeholder="Massage" required></textarea>
+                <button type="submit" class="btn btn-primary">Send Massage</button>
+            </form>
+        </div>
+    </section>
+
+</body>
+{% endblock %}

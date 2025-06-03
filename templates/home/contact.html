@@ -1,0 +1,53 @@
+{% extends "home/base.html" %}
+{% block title %} Contact {% endblock %}
+{% block content %}
+{% load static %}
+<body id="/">
+
+    <section class="contact" id="contact">
+        <h2>Contact Us</h2>
+        <div class="box_container contact_container">
+            <aside class="contact_aside">
+                <p>Our team will reach out to you. If you have any queries, feel free to contact us by phone or email.
+
+                    Thank you for Visiting!
+                </p>
+                <ul class="contact_details">
+                    <li>
+                        <i class="fa-solid fa-phone"></i>
+                        <h5>+8801310692122</h5>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-envelope"></i>
+                        <h5>crack404websol@gmail.com</h5>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-location-dot"></i>
+                        <h5>Sylhet, Bangladesh</h5>
+                    </li>
+                </ul>
+                <ul class="contact_socials">
+                    <li><a href="http://facebook.com" target="_blank"><i class="fa-brands fa-facebook"></i></a></li>
+                    <li><a href="http://instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i></a></li>
+                    <li><a href="https://twitter.com/TahmidHaqu97852" target="_blank"><i
+                                class="fa-brands fa-twitter"></i></a></li>
+                    <li><a href="https://www.linkedin.com/in/tahmid-haque-7698a1258/" target="_blank"><i
+                                class="fa-brands fa-linkedin"></i></a></li>
+                </ul>
+            </aside>
+
+            <form action="/contact" method="POST" class="contact_form">
+                {% csrf_token %}
+                <div class="form_name">
+                    <input type="text" id="first_name" name="first_name" Placeholder="First Name" required>
+                    <input type="text" id="last_name" name="last_name" Placeholder="Last Name" required>
+                </div>
+                <input type="email" id="email" name="email" placeholder="Your Email Address" required>
+                <textarea id="content" name="content" rows="7" placeholder="Massage" required></textarea>
+                <button type="submit" class="btn btn-primary">Send Massage</button>
+            </form>
+        </div>
+    </section>
+
+</body>
+{% endblock %}

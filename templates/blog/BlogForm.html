@@ -1,0 +1,105 @@
+{% extends "home/base.html" %}
+{% block title %} Drop Your Idea {% endblock %}
+{% block content %}
+{% load static %}
+
+<section class="blogForm" id="blogForm">
+    <h2>Drop Your Idea</h2>
+    <div class="box_container blogForm_container">
+        <form action="" method="POST" enctype="multipart/form-data" class="blogForm_form">
+            {% csrf_token %}
+
+            <!-- Select Author & Authenticate -->
+            <label for="author">Choose an Author:</label>
+            <select name="author" id="author">
+                <option value="">Select an Author</option>
+                {% for author in authors %}
+                    <option value="{{ author.id }}">{{ author.name }}</option>
+                {% endfor %}
+            </select>
+
+            <div id="author-password-section" style="display: none;">
+                <input type="password" name="password" placeholder="Enter Password">
+            </div>
+
+            <!-- OR Register a new author -->
+            <div id="new-author-section">
+                <h4>Or Register as a New Author:</h4>
+                <input type="text" name="name" placeholder="Enter Name">
+                <input type="text" name="designation" placeholder="Enter Designation">
+                <input type="file" name="author_image" accept="image/*">
+                <input type="password" name="new_password" placeholder="Set a Password">
+            </div>
+
+            <!-- Blog Fields -->
+            <input type="text" name="title" placeholder="Blog Title" required>
+            <input type="text" name="slug" placeholder="Slug (must be unique)" required>
+
+            <!-- Quill Editor -->
+            <div id="editor"></div>
+            <input type="hidden" name="content" id="hidden-content">
+
+            <input type="file" name="image" accept="image/*">
+            <button type="submit" class="btn">Submit Blog</button>
+        </form>
+
+        <!-- Show error messages -->
+        {% if messages %}
+            {% for message in messages %}
+                <p style="color:red;">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+</section>
+
+<!-- Quill.js Rich Text Editor -->
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var quill = new Quill('#editor', {
+            theme: 'snow',
+            placeholder: 'Write your blog content...',
+            modules: {
+                toolbar: [
+                    ['bold', 'italic', 'underline', 'strike'],
+                    [{ 'align': [] }],
+                    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                    ['link', 'image', 'video'],
+                    ['clean']
+                ]
+            }
+        });
+
+        document.querySelector("form").addEventListener("submit", function(event) {
+            let editorContent = quill.root.innerHTML.trim();
+            if (editorContent === "<p><br></p>" || editorContent === "") {
+                alert("Content cannot be empty!");
+                event.preventDefault();
+                return;
+            }
+            document.querySelector("#hidden-content").value = editorContent;
+        });
+
+        // Toggle between existing author and new author fields
+        let authorSelect = document.getElementById("author");
+        let newAuthorSection = document.getElementById("new-author-section");
+        let passwordSection = document.getElementById("author-password-section");
+
+        function toggleAuthorFields() {
+            if (authorSelect.value) {
+                newAuthorSection.style.display = "none";
+                passwordSection.style.display = "block";
+            } else {
+                newAuthorSection.style.display = "block";
+                passwordSection.style.display = "none";
+            }
+        }
+
+        authorSelect.addEventListener("change", toggleAuthorFields);
+        toggleAuthorFields(); // Run on page load
+    });
+</script>
+
+{% endblock %}

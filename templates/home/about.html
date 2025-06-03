@@ -1,0 +1,45 @@
+{% extends "home/base.html" %}
+{% block title %} About {% endblock %}
+{% block content %}
+{% load static %}
+<body id="/">
+
+    <section class="about" id="about">
+        <h2>About Us</h2>
+
+        {% for about in abouts %} 
+        <div class="box_container about_container">
+            <div class="about_left">
+                <h1>{{about.heading}}</h1>
+                <p>{{about.desc}}</p>
+                <div class="achievement-cards">
+                    <article class="achievement-card">
+                        <h3>{{about.t_project}}+</h3>
+                        <p>Total Projects</p>
+                    </article>
+                    <article class="achievement-card">
+                        <h3>{{about.t_country}}+</h3>
+                        <p>Counties</p>
+                    </article>
+                    <article class="achievement-card">
+                        <h3>{{about.o_project}}+</h3>
+                        <p>Ongoing Projects</p>
+                    </article>
+                    <article class="achievement-card">
+                        <h3>{{about.view}}M</h3>
+                        <p>Reviews</p>
+                    </article>
+                </div>
+            </div>
+            <div class="about_right">
+                <div class="about_right-image">
+                    <img src="{{about.image.url}}">
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </section>
+
+</body>
+{% endblock %}

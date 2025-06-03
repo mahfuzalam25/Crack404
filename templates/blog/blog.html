@@ -1,0 +1,51 @@
+{% extends "home/base.html" %}
+{% block title %} Blog {% endblock %}
+{% block content %}
+{% load static %}
+<body id="/">
+
+    <section class="blogs">
+        <h1>Welcome to Our Blog Site</h1>
+        <p>Discover the latest news, tips and user research insights from Inverse. <br> You'll learn about design
+            tokens,
+            design systems and design APIs best practices.</p>
+        <div>
+            <select name="category" class="box">
+                <option value="" disabled selected>Selelct category</option>
+                <option class="categorys" value="Full-stack">Full Stack</option>
+                <option class="categorys" value="Front-end">Frontend</option>
+                <option class="categorys" value="Back-end">Backend</option>
+                <option class="categorys" value="Database">Database</option>
+            </select>
+        </div>
+        <div >
+            <a href="{% url 'addblog' %}" class="boxadd">Add blog</a>
+        </div>
+
+        {% for post in allPosts %}
+        <div class="blog">
+            <h2>{{ post.title }}</h2>
+            <p>{{ post.content | safe | slice:":100" }}...</p>
+            <p class="date">{{ post.publish_date }}</p>
+            <div class="read">
+                <div class="info">
+                    <div class="img">
+                        <!-- Correct way to reference author image -->
+                        <img src="{{ post.author.image.url }}" alt="{{ post.author.name }}">
+                    </div>
+                    <div class="name">
+                        <h5>{{ post.author.name }}</h5>
+                        <p>{{ post.author.designation }}</p>
+                    </div>
+                </div>
+                <div class="btn-blog">
+                    <a href="{{ post.slug }}">Read more</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </section>
+
+</body>
+{% endblock %}

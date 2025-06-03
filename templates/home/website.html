@@ -1,0 +1,47 @@
+{% extends "home/base.html" %}
+{% block title %} Website {% endblock %}
+{% block content %}
+{% load static %}
+<body id="/">
+
+    <section class="web-site" id="web-site">
+        <h2>Our New Released Projects</h2>
+        <div class="mySwiper">
+            <div class="swiper-wrapper">
+
+                {% for website in websites %}
+                <div class="swiper-slide">
+                    <div class="box_container web_container">
+                        <div class="web_left">
+                            <div class="web-title"><a href="{{website.url}}"><img src="{{website.image.url}}"
+                                        alt="website.title"></a>
+                                <h1>{{website.title}}</h1>
+                            </div>
+                            <div class="web-info">
+                                <div class="web-review">
+                                    <div class="web-icon"><i class="fa-solid fa-book"></i></div>
+                                    <p>{{website.description1}}</p>
+                                </div>
+                                <div class="web-review">
+                                    <div class="web-icon"><i class="fa-solid fa-school"></i></div>
+                                    <p>{{website.description2}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="web_right">
+                            <div class="web_right-image">
+                                <img src="{{website.projectImage.url}}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    </section>
+
+</body>
+{% endblock %}
